@@ -1,0 +1,127 @@
+<!--
+  ~ Created by Sebastian Paciorek on 6.3.2019
+  ~ Copyright (c) 2019.  All rights reserved.
+  ~ Last modified 06.03.19 23:54
+  -->
+
+<resources>
+    <string name="app_name">Tickets</string>
+	<string name="choose_method_title">Sposób sterowania</string>
+    <string name="tickets_title">Bilety</string>
+    <string name="buy_ticket_title">Kup bilet</string>
+    <string name="ticket_control_title">Kontrola biletów</string>
+	<string name="ticket_control_details">Szczegóły biletu</string>
+    <string name="buy_ticket_choice_title">Wybór biletów</string>
+    <string name="discount_ticket_title">Ulgowe</string>
+    <string name="normal_ticket_title">Normalne</string>
+	<string name="error_get_tickets_json_message">Wystąpił błąd przy pobieraniu biletów</string>
+	<string name="payment_method_title">Metoda płatności</string>
+	<string name="payment_method_mastercard_title">Mastercard</string>
+	<string name="payment_method_masterpass_title">Masterpass</string>
+	<string name="payment_method_visa_title">VISA</string>
+	<string name="summary_title">Podsumowanie</string>
+	<string name="buy_and_pay_title">Kupuję i płacę</string>
+	<string name="payment_title">Płatność</string>
+	<string name="author">inż. Sebastian Paciorek</string>
+	<string name="button_start_title">Start</string>
+	<string name="button_about_app_title">O aplikacji</string>
+	<string name="gesture_sensor_error_title">Wystąpił bład przy odczycie ruchu z sensora</string>
+	<string name="gesture_loading_info_title">Rozpoczęto przechodzenie do aktywności z zaznaczonym elementem \nWykonaj dynamiczny ruch frontem ekranu do siebie by zmienić </string>
+	<string name="gesture_sensor_return_title">Wróć</string>
+
+	<!-- Colors for gesture module-->
+
+	<string name="selected_button_color">#008577</string>
+	<string name="unselected_button_color">#FFE4E4E4</string>
+	<string name="selected_recycler_view_item_color">#008577</string>
+	<string name="unselected_recycler_view_item_color">#FAFAFA</string>
+
+	<!-- Choose method activity -->
+
+	<string name="choose_method_title_touch">DOTYK</string>
+	<string name="choose_method_title_gesture">GESTY</string>
+	<string name="choose_method_title_speech">MOWA</string>
+
+	<string name="choose_method_description_touch">Sterowanie odbywa się za pomocą dotyku</string>
+	<string name="choose_method_description_gesture">Sterowanie odbywa się za pomocą wykorzystania akcelerometru i zdefiniowanych gestów przy ruchu telefonu</string>
+	<string name="choose_method_description_speech">Sterowanie odbywa się za pomocą rozpoznawania mowy</string>
+
+    <string name="discount_tickets_json">[
+		{
+			\"name\": \"Bilet 20 min. Strefa 1 i 2\",
+			\"price\": \"1,70 PLN\"},
+		{
+			\"name\": \"Bilet jednorazowy przesiadkowy 75 min. Strefa 1\",
+			\"price\": \"2,20 PLN\"
+		},
+		{
+			\"name\": \"Bilet jednorazowy przesiadkowy 90 min. Strefa 1 i 2\",
+			\"price\": \"3,50 PLN\"
+		},
+		{
+			\"name\": \"Bilet dobowy. Strefa 1\",
+			\"price\": \"7,50 PLN\"
+		},
+		{
+			\"name\": \"Bilet dobowy. Strefa 1 i 2\",
+			\"price\": \"13,00 PLN\"
+		},
+		{
+			\"name\": \"Bilet weekendowy. Strefa 1 i 2\",
+			\"price\": \"12,00 PLN\"
+		},
+		{
+			\"name\": \"Bilet 3-dniowy. Strefa 1\",
+			\"price\": \"18,00 PLN\"
+		},
+		{
+			\"name\": \"Bilet 3-dniowy. Strefa 1 i 2\",
+			\"price\": \"28,50 PLN\"
+		},
+		{
+			\"name\": \"Bilet jednorazowy przesiadkowy 75 min. dla 10 osób. Strefa 1\",
+			\"price\": \"22,00 PLN\"
+		}
+	]
+    </string>
+
+	<string name="normal_tickets_json">[
+		{
+			\"name\": \"Bilet 20 min. Strefa 1 i 2\",
+			\"price\": \"3,40 PLN\"},
+		{
+			\"name\": \"Bilet jednorazowy przesiadkowy 75 min. Strefa 1\",
+			\"price\": \"4,40 PLN\"
+		},
+		{
+			\"name\": \"Bilet jednorazowy przesiadkowy 90 min. Strefa 1 i 2\",
+			\"price\": \"7,00 PLN\"
+		},
+		{
+			\"name\": \"Bilet dobowy. Strefa 1\",
+			\"price\": \"15,00 PLN\"
+		},
+		{
+			\"name\": \"Bilet dobowy. Strefa 1 i 2\",
+			\"price\": \"26,00 PLN\"
+		},
+		{
+			\"name\": \"Bilet weekendowy. Strefa 1 i 2\",
+			\"price\": \"24,00 PLN\"
+		},
+		{
+			\"name\": \"Bilet weekendowy grupowy. Strefa 1 i 2\",
+			\"price\": \"40,00 PLN\"
+		},
+		{
+			\"name\": \"Bilet 3-dniowy. Strefa 1\",
+			\"price\": \"36,00 PLN\"
+		},
+		{
+			\"name\": \"Bilet 3-dniowy. Strefa 1 i 2\",
+			\"price\": \"57,00 PLN\"
+		}
+	]
+    </string>
+
+</resources>

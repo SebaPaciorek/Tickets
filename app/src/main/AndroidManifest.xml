@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Sebastian Paciorek on 6.3.2019
+  ~ Copyright (c) 2019.  All rights reserved.
+  ~ Last modified 06.03.19 23:54
+  -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="buying.tickets">
+
+    <application
+        android:name=".application.TicketsApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_bus"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/ic_bus"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".touch.view.TouchMainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".choosemethod.ChooseMethodActivity" />
+        </activity>
+
+        <activity
+            android:name=".touch.view.TouchBuyTicketActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".touch.view.TouchMainActivity" />
+        </activity>
+
+        <activity
+            android:name=".touch.view.TouchTicketControlActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".touch.view.TouchMainActivity" />
+        </activity>
+
+        <activity
+            android:name=".touch.view.TouchTicketControlDetailsActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".touch.view.TouchTicketControlActivity" />
+        </activity>
+
+        <activity
+            android:name=".touch.view.TouchTicketsActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".touch.view.TouchBuyTicketActivity" />
+        </activity>
+
+        <activity
+            android:name=".touch.view.TouchPaymentMethodActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".touch.view.TouchSummaryActivity" />
+        </activity>
+
+        <activity
+            android:name=".touch.view.TouchSummaryActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".touch.view.TouchTicketsActivity" />
+        </activity>
+
+        <activity
+            android:name=".touch.view.TouchPaymentActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+
+        <activity
+            android:name=".gesture.view.GestureMainActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".gesture.view.GestureBuyTicketActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".gesture.view.GestureTicketsActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".gesture.view.GestureSummaryActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".gesture.view.GesturePaymentMethodActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".gesture.view.GesturePaymentActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".gesture.view.GestureTicketControlActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".gesture.view.GestureTicketControlDetailsActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+
+        <activity
+            android:name=".choosemethod.ChooseMethodActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+
+
+
+    </application>
+
+</manifest>

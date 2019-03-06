@@ -1,0 +1,22 @@
+<!--
+  ~ Created by Sebastian Paciorek on 6.3.2019
+  ~ Copyright (c) 2019.  All rights reserved.
+  ~ Last modified 06.03.19 23:54
+  -->
+
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="pager_dot_size">8dp</dimen>
+    <dimen name="pager_height">16dp</dimen>
+    <dimen name="choose_method_header_top_margin">50dp</dimen>
+
+    <dimen name="choose_method_description_padding">30dp</dimen>
+    <dimen name="choose_method_banner_height">300dp</dimen>
+    <dimen name="items_inbetween">8dp</dimen>
+
+    <dimen name="button_text">18sp</dimen>
+    <dimen name="choose_method_title_text_size">40sp</dimen>
+    <dimen name="choose_method_description_text_size">22sp</dimen>
+</resources>

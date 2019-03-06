@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Sebastian Paciorek on 6.3.2019
+  ~ Copyright (c) 2019.  All rights reserved.
+  ~ Last modified 06.03.19 23:54
+  -->
+
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorLightGray">#E4E4E4</color>
+    <color name="colorSelected">#00FF00</color>
+    <color name="colorUnSelected">#FAFAFA</color>
+
+    <color name="selectedDotColor">#2D9CDB</color>
+    <color name="dotColor">#662D9CDB</color>
+
+    <color name="choose_method_titleColor">#4A4A4A</color>
+    <color name="choose_method_descriptionColor">#4A4A4A</color>
+</resources>
