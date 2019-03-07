@@ -9,7 +9,9 @@ package buying.tickets.application;
 import android.app.Application;
 
 import io.realm.Realm;
-
+/**
+ * Created by Sebastian Paciorek
+ */
 public class TicketsApplication extends Application {
     @Override
     public void onCreate() {

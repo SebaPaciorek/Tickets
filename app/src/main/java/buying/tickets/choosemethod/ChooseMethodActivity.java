@@ -5,7 +5,9 @@
  */
 
 package buying.tickets.choosemethod;
-
+/**
+ * Created by Sebastian Paciorek
+ */
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;

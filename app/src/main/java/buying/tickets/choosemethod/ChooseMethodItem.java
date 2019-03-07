@@ -5,7 +5,9 @@
  */
 
 package buying.tickets.choosemethod;
-
+/**
+ * Created by Sebastian Paciorek
+ */
 public class ChooseMethodItem {
 
     int imageID;
