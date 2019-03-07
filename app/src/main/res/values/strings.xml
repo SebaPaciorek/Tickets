@@ -31,6 +31,23 @@
 	<string name="speech_recognition_available">Rozpoznawanie mowy jest dostępne na tym urządzeniu</string>
 	<string name="speech_recognition_unavailable">Rozpoznawanie mowy nie jest dostępne na tym urządzeniu</string>
 	<string name="accepted_confidence">0.6</string>
+	<string name="internet_not_connected_title">Brak lub słabe połączenie z siecią Internet</string>
+	<string name="speech_error_no_match_title">Nie rozpoznano\nSpróbuj ponownie</string>
+	<string name="speech_network_error_message">Wystąpił błąd związany z siecią</string>
+	<string name="speech_no_match_error_message">Nie znaleziono dopasowania</string>
+	<string name="speech_network_timeout_error_message">Przekroczono limit czasu sieci</string>
+	<string name="speech_insufficient_permission_error_message">Brak wymaganych pozwoleń do rozpoznawania mowy</string>
+	<string name="speech_client_side_error_message">Błąd po stronie klienta</string>
+	<string name="speech_audio_recording_error_message">Błąd nagrywania dźwięku</string>
+	<string name="speech_recognition_service_busy_error_message">Serwis rozpoznawania mowy jest już zajęty</string>
+	<string name="speech_error_from_server_message">Błąd po stronie serwera</string>
+	<string name="speech_no_speech_input_error__message">Nie wykryto mowy. Spróbuj mówić głośniej i wyraźniej</string>
+
+	<string name="speech_on_ready_for_speech_message">Nasłuchuję...</string>
+	<string name="speech_beginning_of_speech_message">Wykryto rozpoczęcie mówienia</string>
+	<string name="speech_end_of_speech_message">Wykryto zakończenie mówienia</string>
+	<string name="speech_checking_for_results_message">Przetwarzam mowę...</string>
+	<string name="speech_results_error_message">Nie dopasowano do możliwych wyborów\nSpróbuj ponownie</string>
 
 	<!-- Colors for gesture module-->
 

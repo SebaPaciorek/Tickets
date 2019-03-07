@@ -19,13 +19,42 @@
         android:editable="false"
         android:freezesText="false"
         android:gravity="center"
-        android:text="Brak połączenia z siecią Internet"
+        android:text="@string/internet_not_connected_title"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/speech_main_listening_actions_infotextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/speech_main_internetTextView" />
+
+    <TextView
+        android:id="@+id/speech_main_listening_error_infotextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/speech_main_listening_actions_infotextView" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/speech_main_ticket_controlButton"

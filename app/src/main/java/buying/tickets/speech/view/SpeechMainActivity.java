@@ -37,13 +37,15 @@ import buying.tickets.internetConnection.InternetConnectorReceiver;
 /**
  * Created by Sebastian Paciorek
  */
-public class SpeechMainActivity extends AppCompatActivity implements RecognitionListener, InternetConnectionInterface.View  {
+public class SpeechMainActivity extends AppCompatActivity implements RecognitionListener, InternetConnectionInterface.View {
 
     private static SpeechMainActivity speechMainActivity;
 
     private Button buyTicketButton;
     private Button ticketControlButton;
     private TextView internetTextView;
+    private TextView listeningActionsInfoTextView;
+    private TextView listeningErrorInfoTextView;
 
     private SpeechRecognizer speechRecognizer;
     private Intent recognizerIntent;
@@ -51,6 +53,7 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
 
     private InternetCheck internetCheck;
     private InternetConnectionInterface.Presenter internetConnectionPresenter;
+    private boolean internetConnected = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,6 +76,8 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
         buyTicketButton = findViewById(R.id.speech_main_buy_ticketButton);
         ticketControlButton = findViewById(R.id.speech_main_ticket_controlButton);
         internetTextView = findViewById(R.id.speech_main_internetTextView);
+        listeningActionsInfoTextView = findViewById(R.id.speech_main_listening_actions_infotextView);
+        listeningErrorInfoTextView = findViewById(R.id.speech_main_listening_error_infotextView);
 
         setBuyTicketsButton();
         setTicketControlButtonButton();
@@ -104,6 +109,13 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
         });
     }
 
+    private void setInternetConnection() {
+        internetCheck = new InternetCheck(internet -> {
+            internetConnectionPresenter.setConnected(internet);
+        });
+
+    }
+
     @Override
     public void showInternetTextView(boolean isConnected) {
         if (isConnected) {
@@ -111,6 +123,35 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
         } else {
             internetTextView.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void showListeningErrorInfoMatchInfo(boolean show) {
+        if (show) {
+            listeningErrorInfoTextView.setVisibility(View.VISIBLE);
+        } else {
+            listeningErrorInfoTextView.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void setListeningErrorInfoTextView(String message) {
+        listeningErrorInfoTextView.setText(message);
+    }
+
+    private void showListeningActionsInfoMatchInfo(boolean show) {
+        if (show) {
+            listeningActionsInfoTextView.setVisibility(View.VISIBLE);
+        } else {
+            listeningActionsInfoTextView.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void setListeningActionsInfoTextView(String message) {
+        listeningActionsInfoTextView.setText(message);
+    }
+
+    @Override
+    public void setInternetConnected(boolean isConnected) {
+        internetConnected = isConnected;
     }
 
     private void requestRecordAudioPermission() {
@@ -121,8 +162,9 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
                 requestPermissions(new String[]{requiredPermission}, 101);
 
             } else {
+                setInternetConnection();
                 promptSpeechInput();
-                speechRecognizer.startListening(recognizerIntent);
+                if (internetConnectionPresenter.isConnected()) startListening();
             }
         }
     }
@@ -137,9 +179,10 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
                     if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                         return;
                     } else {
+                        setInternetConnection();
                         checkIsRecognitionAvailable();
                         promptSpeechInput();
-                        speechRecognizer.startListening(recognizerIntent);
+                        if (internetConnectionPresenter.isConnected()) startListening();
                     }
                 }
             }
@@ -163,6 +206,10 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
         recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, this.getPackageName());
     }
 
+    private void startListening() {
+        speechRecognizer.startListening(recognizerIntent);
+    }
+
     public static SpeechMainActivity getInstance() {
         return speechMainActivity;
     }
@@ -170,18 +217,22 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
     //Called when the endpointer is ready for the user to start speaking.
     @Override
     public void onReadyForSpeech(Bundle params) {
+        setListeningActionsInfoTextView(getResources().getString(R.string.speech_on_ready_for_speech_message));
         Log.d("LOG", "onReadyForSpeech");
     }
 
     //The user has started to speak.
     @Override
     public void onBeginningOfSpeech() {
+        setListeningActionsInfoTextView(getResources().getString(R.string.speech_on_ready_for_speech_message) + "\n" + getResources().getString(R.string.speech_beginning_of_speech_message));
         Log.d("LOG", "onBeginningOfSpeech");
     }
 
     //The sound level in the audio stream has changed.
     @Override
     public void onRmsChanged(float rmsdB) {
+        checkInternetAccess();
+        TicketsApplication.activityResumed();
         Log.d("LOG", "onRmsChanged");
     }
 
@@ -196,6 +247,7 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
     //Called after the user stops speaking.
     @Override
     public void onEndOfSpeech() {
+        setListeningActionsInfoTextView(getResources().getString(R.string.speech_on_ready_for_speech_message) + "\n" + getResources().getString(R.string.speech_end_of_speech_message));
         Log.d("LOG", "onEndOfSpeech");
     }
 
@@ -203,34 +255,87 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
     @Override
     public void onError(int error) {
         Log.d("LOG", "onError " + getErrorText(error));
+        showListeningErrorInfoMatchInfo(true);
+        switch (getErrorText(error)) {
+
+            case "Audio recording error":
+                setListeningErrorInfoTextView(getResources().getString(R.string.speech_audio_recording_error_message));
+                break;
+            case "Client side error":
+                setListeningErrorInfoTextView(getResources().getString(R.string.speech_client_side_error_message));
+                break;
+            case "Insufficient permissions":
+                setListeningErrorInfoTextView(getResources().getString(R.string.speech_insufficient_permission_error_message));
+                break;
+            case "Network error":
+                setListeningErrorInfoTextView(getResources().getString(R.string.speech_network_error_message));
+                showInternetTextView(false);
+                setInternetConnection();
+                break;
+            case "Network timeout":
+                setListeningErrorInfoTextView(getResources().getString(R.string.speech_network_timeout_error_message));
+                break;
+            case "No match":
+                setListeningErrorInfoTextView(getResources().getString(R.string.speech_no_match_error_message));
+                break;
+            case "RecognitionService busy":
+                setListeningErrorInfoTextView(getResources().getString(R.string.speech_recognition_service_busy_error_message));
+                break;
+            case "error from server":
+                setListeningErrorInfoTextView(getResources().getString(R.string.speech_error_from_server_message));
+                break;
+            case "No speech input":
+                setListeningErrorInfoTextView(getResources().getString(R.string.speech_no_speech_input_error__message));
+                break;
+        }
 
     }
 
     //Called when recognition results are ready.
     @Override
     public void onResults(Bundle results) {
+        setListeningActionsInfoTextView(getResources().getString(R.string.speech_checking_for_results_message));
         Log.d("LOG", "onResults");
         ArrayList<String> voiceResults = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
         float[] confidenceScores = results.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES);
 
         if (voiceResults != null) {
-
-            Log.d("LOG", "results: " + voiceResults.get(0));
-        }
-
-        //Confidence values close to 1.0 indicate high confidence (the speech recognizer is confident that the recognition result is correct),
-        // while values close to 0.0 indicate low confidence.
-        if (confidenceScores != null) {
-            if (confidenceScores.length > 0) {
-                Log.d("LOG", "results: " + String.valueOf(confidenceScores[0]));
+            if (confidenceScores != null) {
+                if (confidenceScores.length > 0) {
+                    Log.d("LOG", "results: " + String.valueOf(confidenceScores[0]));
+                    if (confidenceScores[0] >= Float.valueOf(getResources().getString(R.string.accepted_confidence))) {
+                        Log.d("LOG", "results: " + voiceResults.get(0));
+                        checkResults(voiceResults.get(0));
+                    } else {
+                        showListeningErrorInfoMatchInfo(true);
+                        setListeningErrorInfoTextView(getResources().getString(R.string.speech_results_error_message));
+                    }
+                } else {
+                    showListeningErrorInfoMatchInfo(true);
+                    setListeningErrorInfoTextView(getResources().getString(R.string.speech_results_error_message));
+                }
             } else {
-                Log.d("LOG", "confidenceScores != null && confidenceScores.length < 0 : ");
+                showListeningErrorInfoMatchInfo(true);
+                setListeningErrorInfoTextView(getResources().getString(R.string.speech_results_error_message));
             }
-
         } else {
-            Log.d("LOG", "confidenceScores == null ");
+            showListeningErrorInfoMatchInfo(true);
+            setListeningErrorInfoTextView(getResources().getString(R.string.speech_results_error_message));
         }
 
+
+    }
+
+    private void checkResults(String results) {
+        String ticketControl = ticketControlButton.getText().toString().toLowerCase();
+        String buyTicket = buyTicketButton.getText().toString().toLowerCase();
+        if (results != null) {
+            if (buyTicket.contains(results)) {
+                Log.d("LOG", "KUP BILET");
+            } else if (ticketControl.contains(results)) {
+                Log.d("LOG", "KONTROLA BILETOW");
+            }
+        }
     }
 
     //Called when partial recognition results are available.
@@ -290,17 +395,20 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
     protected void onStart() {
         super.onStart();
         TicketsApplication.activityResumed();
+        checkInternetAccess();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         TicketsApplication.activityResumed();
+        checkInternetAccess();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         TicketsApplication.activityPaused();
+        checkInternetAccess();
     }
 }
