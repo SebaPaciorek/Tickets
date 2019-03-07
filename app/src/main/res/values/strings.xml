@@ -28,6 +28,8 @@
 	<string name="gesture_sensor_error_title">Wystąpił bład przy odczycie ruchu z sensora</string>
 	<string name="gesture_loading_info_title">Rozpoczęto przechodzenie do aktywności z zaznaczonym elementem \nWykonaj dynamiczny ruch frontem ekranu do siebie by zmienić </string>
 	<string name="gesture_sensor_return_title">Wróć</string>
+	<string name="speech_recognition_available">Rozpoznawanie mowy jest dostępne na tym urządzeniu</string>
+	<string name="speech_recognition_unavailable">Rozpoznawanie mowy nie jest dostępne na tym urządzeniu</string>
 
 	<!-- Colors for gesture module-->
 
