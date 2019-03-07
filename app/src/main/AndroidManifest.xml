@@ -8,6 +8,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="buying.tickets">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     <application
         android:name=".application.TicketsApplication"
         android:allowBackup="true"
