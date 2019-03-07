@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 import buying.tickets.R;
 import buying.tickets.gesture.view.GestureMainActivity;
+import buying.tickets.speech.view.SpeechMainActivity;
 import buying.tickets.touch.view.TouchMainActivity;
 
 public class ChooseMethodActivity extends AppCompatActivity {
@@ -169,8 +170,8 @@ public class ChooseMethodActivity extends AppCompatActivity {
     }
 
     private void startSpeechMainActivity() {
-//        Intent intent = new Intent(this, ChooseMethodActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, SpeechMainActivity.class);
+        startActivity(intent);
     }
 
     public static ChooseMethodActivity getInstance() {
