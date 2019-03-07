@@ -30,6 +30,7 @@
 	<string name="gesture_sensor_return_title">Wróć</string>
 	<string name="speech_recognition_available">Rozpoznawanie mowy jest dostępne na tym urządzeniu</string>
 	<string name="speech_recognition_unavailable">Rozpoznawanie mowy nie jest dostępne na tym urządzeniu</string>
+	<string name="accepted_confidence">0.6</string>
 
 	<!-- Colors for gesture module-->
 
