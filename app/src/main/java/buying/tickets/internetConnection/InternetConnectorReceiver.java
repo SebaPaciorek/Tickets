@@ -21,7 +21,7 @@ import buying.tickets.speech.view.SpeechMainActivity;
 public class InternetConnectorReceiver extends BroadcastReceiver implements InternetConnectionInterface.Presenter {
 
     private InternetConnectionInterface.View view;
-    boolean connected;
+    boolean connected = true;
 
     public InternetConnectorReceiver() {
     }
@@ -29,7 +29,6 @@ public class InternetConnectorReceiver extends BroadcastReceiver implements Inte
     @Override
     public void onReceive(Context context, Intent intent) {
         try {
-            boolean isConnected = true;
             boolean isVisible = TicketsApplication.isActivityVisible();
 
             if (isVisible) {
@@ -40,9 +39,11 @@ public class InternetConnectorReceiver extends BroadcastReceiver implements Inte
 
                 if (networkInfo != null && networkInfo.isConnected()) {
                     changedStatusInternet(true);
+                    changedInternetConnected(true);
                     connected = true;
                 } else {
                     changedStatusInternet(false);
+                    changedInternetConnected(false);
                     connected = false;
                 }
             }
@@ -57,6 +58,20 @@ public class InternetConnectorReceiver extends BroadcastReceiver implements Inte
             SpeechMainActivity.getInstance().showInternetTextView(isConnected);
         } catch (Exception e) {
         }
+    }
+
+    private void changedInternetConnected(boolean isConnected) {
+        SpeechMainActivity.getInstance().setInternetConnected(isConnected);
+    }
+
+    @Override
+    public boolean isConnected() {
+        return connected;
+    }
+
+    @Override
+    public void setConnected(boolean connected) {
+        this.connected = connected;
     }
 
     @Override

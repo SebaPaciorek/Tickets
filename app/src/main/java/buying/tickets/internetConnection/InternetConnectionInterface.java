@@ -12,11 +12,17 @@ package buying.tickets.internetConnection;
 public interface InternetConnectionInterface {
     interface View {
         void showInternetTextView(boolean isConnected);
+
+        void setInternetConnected(boolean isConnected);
     }
 
     interface Presenter {
         void changedStatusInternet(boolean isConnected);
 
         void getView(InternetConnectionInterface.View view);
+
+        boolean isConnected();
+
+        void setConnected(boolean connected);
     }
 }
