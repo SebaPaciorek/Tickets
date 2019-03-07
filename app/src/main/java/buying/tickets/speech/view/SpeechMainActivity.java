@@ -27,7 +27,7 @@ public class SpeechMainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_main);
-
+        setTitle(getResources().getString(R.string.tickets_title));
         speechMainActivity = this;
 
         setComponents();
