@@ -50,6 +50,21 @@
 	<string name="speech_results_checked_error_message">Nie dopasowano do możliwych wyborów\nSpróbuj ponownie</string>
 	<string name="speech_results_checked_success_message">Znaleziono dopasowanie</string>
 	<string name="speech_loading_info_title">Przechodzenie do aktywności z zaznaczonym elementem</string>
+	
+	<string-array name="ticket_20min_match_sequence">
+		<item>dwudziestominutowy</item>
+		<item>20 minutowy</item>
+	</string-array>
+
+	<string-array name="ticket_75min_match_sequence">
+		<item>siedemdziesięciopięciominutowy</item>
+		<item>75 minutowy</item>
+	</string-array>
+
+	<string-array name="ticket_90min_match_sequence">
+		<item>dziewięćdziesięciominutowy</item>
+		<item>90 minutowy</item>
+	</string-array>
 
 	<!-- Colors for gesture module-->
 
