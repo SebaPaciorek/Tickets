@@ -9,19 +9,20 @@ package buying.tickets.speech.view;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import java.util.Locale;
 
 import buying.tickets.R;
 import buying.tickets.application.TicketsApplication;
+import buying.tickets.choosemethod.ChooseMethodActivity;
 import buying.tickets.internetConnection.InternetCheck;
 import buying.tickets.internetConnection.InternetConnectionInterface;
 import buying.tickets.internetConnection.InternetConnectorReceiver;
@@ -43,9 +45,12 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
 
     private Button buyTicketButton;
     private Button ticketControlButton;
+    private Button returnButton;
     private TextView internetTextView;
     private TextView listeningActionsInfoTextView;
     private TextView listeningErrorInfoTextView;
+    private ProgressBar progressBar;
+    private TextView progressInfoTextView;
 
     private SpeechRecognizer speechRecognizer;
     private Intent recognizerIntent;
@@ -54,6 +59,8 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
     private InternetCheck internetCheck;
     private InternetConnectionInterface.Presenter internetConnectionPresenter;
     private boolean internetConnected = false;
+
+    private String activity = "buyTicket";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,9 +82,12 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
     private void setComponents() {
         buyTicketButton = findViewById(R.id.speech_main_buy_ticketButton);
         ticketControlButton = findViewById(R.id.speech_main_ticket_controlButton);
+        returnButton = findViewById(R.id.speech_main_returnButton);
         internetTextView = findViewById(R.id.speech_main_internetTextView);
         listeningActionsInfoTextView = findViewById(R.id.speech_main_listening_actions_infotextView);
         listeningErrorInfoTextView = findViewById(R.id.speech_main_listening_error_infotextView);
+        progressBar = findViewById(R.id.speech_main_progressBar);
+        progressInfoTextView = findViewById(R.id.speech_main_progress_infotextView);
 
         setBuyTicketsButton();
         setTicketControlButtonButton();
@@ -288,6 +298,7 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
                 setListeningErrorInfoTextView(getResources().getString(R.string.speech_no_speech_input_error__message));
                 break;
         }
+        setCountDownTimerStartListening();
 
     }
 
@@ -308,19 +319,23 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
                         checkResults(voiceResults.get(0));
                     } else {
                         showListeningErrorInfoMatchInfo(true);
-                        setListeningErrorInfoTextView(getResources().getString(R.string.speech_results_error_message));
+                        setListeningErrorInfoTextView(getResources().getString(R.string.speech_results_checked_error_message));
+                        setCountDownTimerStartListening();
                     }
                 } else {
                     showListeningErrorInfoMatchInfo(true);
-                    setListeningErrorInfoTextView(getResources().getString(R.string.speech_results_error_message));
+                    setListeningErrorInfoTextView(getResources().getString(R.string.speech_results_checked_error_message));
+                    setCountDownTimerStartListening();
                 }
             } else {
                 showListeningErrorInfoMatchInfo(true);
-                setListeningErrorInfoTextView(getResources().getString(R.string.speech_results_error_message));
+                setListeningErrorInfoTextView(getResources().getString(R.string.speech_results_checked_error_message));
+                setCountDownTimerStartListening();
             }
         } else {
             showListeningErrorInfoMatchInfo(true);
-            setListeningErrorInfoTextView(getResources().getString(R.string.speech_results_error_message));
+            setListeningErrorInfoTextView(getResources().getString(R.string.speech_results_checked_error_message));
+            setCountDownTimerStartListening();
         }
 
 
@@ -329,12 +344,145 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
     private void checkResults(String results) {
         String ticketControl = ticketControlButton.getText().toString().toLowerCase();
         String buyTicket = buyTicketButton.getText().toString().toLowerCase();
+        String chooseMethod = returnButton.getText().toString().toLowerCase();
         if (results != null) {
-            if (buyTicket.contains(results)) {
-                Log.d("LOG", "KUP BILET");
-            } else if (ticketControl.contains(results)) {
-                Log.d("LOG", "KONTROLA BILETOW");
+            if (buyTicket.contains(results.toLowerCase())) {
+                setListeningActionsInfoTextView(getResources().getString(R.string.speech_results_checked_success_message));
+                setSelectedBuyTicketButton(true);
+                setSelectedTicketControlButton(false);
+                setSelectedReturnButton(false);
+                activity = "buyTicket";
+                setCountDownTimerStartActivity();
+            } else if (ticketControl.contains(results.toLowerCase())) {
+                setListeningActionsInfoTextView(getResources().getString(R.string.speech_results_checked_success_message));
+                setSelectedBuyTicketButton(false);
+                setSelectedTicketControlButton(true);
+                setSelectedReturnButton(false);
+                activity = "ticketControl";
+                setCountDownTimerStartActivity();
+            } else if (chooseMethod.contains(results.toLowerCase())) {
+                setListeningActionsInfoTextView(getResources().getString(R.string.speech_results_checked_success_message));
+                setSelectedBuyTicketButton(false);
+                setSelectedTicketControlButton(false);
+                setSelectedReturnButton(true);
+                activity = "chooseMethod";
+                setCountDownTimerStartActivity();
+            } else {
+                setListeningActionsInfoTextView(getResources().getString(R.string.speech_results_checked_error_message));
+                setCountDownTimerStartListening();
             }
+        }
+    }
+
+    private void setCountDownTimerStartActivity() {
+        showProgressBar(true);
+        showProgressInfo(true);
+        new CountDownTimer(2000, 10) {
+
+            public void onTick(long millisUntilFinished) {
+                int value = (int) (100 - (float) (millisUntilFinished / 2000.0) * 100);
+                Log.d("LOG", "" + (int) (100 - (float) (millisUntilFinished / 2000.0) * 100));
+                setProgressBarValue(value);
+            }
+
+            public void onFinish() {
+                showProgressBar(false);
+                showProgressInfo(false);
+                switch (activity) {
+                    case "buyTicket":
+                        startBuyTicketActivity();
+                        break;
+
+                    case "ticketControl":
+                        startTicketControlActivity();
+                        break;
+
+                    case "chooseMethod":
+                        startChooseMethodActivity();
+                        break;
+                }
+            }
+        }.start();
+    }
+
+    private void setCountDownTimerStartListening() {
+        new CountDownTimer(2000, 10) {
+
+            public void onTick(long millisUntilFinished) {
+            }
+
+            public void onFinish() {
+                showListeningErrorInfoMatchInfo(false);
+                setInternetConnection();
+                stopListening();
+                promptSpeechInput();
+                startListening();
+            }
+        }.start();
+    }
+
+    private void stopListening() {
+        speechRecognizer.stopListening();
+        speechRecognizer.destroy();
+    }
+
+    private void setSelectedBuyTicketButton(boolean isSelected) {
+        if (isSelected) {
+            buyTicketButton.setBackgroundColor(Color.parseColor(getResources().getString(R.string.selected_button_color)));
+        } else {
+            buyTicketButton.setBackgroundColor(Color.parseColor(getResources().getString(R.string.unselected_button_color)));
+        }
+    }
+
+    private void setSelectedTicketControlButton(boolean isSelected) {
+        if (isSelected) {
+            ticketControlButton.setBackgroundColor(Color.parseColor(getResources().getString(R.string.selected_button_color)));
+        } else {
+            ticketControlButton.setBackgroundColor(Color.parseColor(getResources().getString(R.string.unselected_button_color)));
+        }
+    }
+
+    private void setSelectedReturnButton(boolean isSelected) {
+        if (isSelected) {
+            returnButton.setBackgroundColor(Color.parseColor(getResources().getString(R.string.selected_button_color)));
+        } else {
+            returnButton.setBackgroundColor(Color.parseColor(getResources().getString(R.string.unselected_button_color)));
+        }
+    }
+
+    private void startBuyTicketActivity() {
+        Intent intent = new Intent(this, ChooseMethodActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void startTicketControlActivity() {
+
+    }
+
+    private void startChooseMethodActivity() {
+        Intent intent = new Intent(this, ChooseMethodActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void setProgressBarValue(int value) {
+        progressBar.setProgress(value);
+    }
+
+    private void showProgressBar(boolean show) {
+        if (show) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    private void showProgressInfo(boolean show) {
+        if (show) {
+            progressInfoTextView.setVisibility(View.VISIBLE);
+        } else {
+            progressInfoTextView.setVisibility(View.GONE);
         }
     }
 

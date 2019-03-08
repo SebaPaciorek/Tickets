@@ -30,7 +30,7 @@
 	<string name="gesture_sensor_return_title">Wróć</string>
 	<string name="speech_recognition_available">Rozpoznawanie mowy jest dostępne na tym urządzeniu</string>
 	<string name="speech_recognition_unavailable">Rozpoznawanie mowy nie jest dostępne na tym urządzeniu</string>
-	<string name="accepted_confidence">0.6</string>
+	<string name="accepted_confidence">0.5</string>
 	<string name="internet_not_connected_title">Brak lub słabe połączenie z siecią Internet</string>
 	<string name="speech_error_no_match_title">Nie rozpoznano\nSpróbuj ponownie</string>
 	<string name="speech_network_error_message">Wystąpił błąd związany z siecią</string>
@@ -47,7 +47,9 @@
 	<string name="speech_beginning_of_speech_message">Wykryto rozpoczęcie mówienia</string>
 	<string name="speech_end_of_speech_message">Wykryto zakończenie mówienia</string>
 	<string name="speech_checking_for_results_message">Przetwarzam mowę...</string>
-	<string name="speech_results_error_message">Nie dopasowano do możliwych wyborów\nSpróbuj ponownie</string>
+	<string name="speech_results_checked_error_message">Nie dopasowano do możliwych wyborów\nSpróbuj ponownie</string>
+	<string name="speech_results_checked_success_message">Znaleziono dopasowanie</string>
+	<string name="speech_loading_info_title">Przechodzenie do aktywności z zaznaczonym elementem</string>
 
 	<!-- Colors for gesture module-->
 
