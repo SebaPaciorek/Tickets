@@ -39,11 +39,11 @@ public class InternetConnectorReceiver extends BroadcastReceiver implements Inte
 
                 if (networkInfo != null && networkInfo.isConnected()) {
                     changedStatusInternet(true);
-                    changedInternetConnected(true);
+
                     connected = true;
                 } else {
                     changedStatusInternet(false);
-                    changedInternetConnected(false);
+
                     connected = false;
                 }
             }
@@ -60,9 +60,6 @@ public class InternetConnectorReceiver extends BroadcastReceiver implements Inte
         }
     }
 
-    private void changedInternetConnected(boolean isConnected) {
-        SpeechMainActivity.getInstance().setInternetConnected(isConnected);
-    }
 
     @Override
     public boolean isConnected() {
