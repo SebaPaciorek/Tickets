@@ -67,6 +67,10 @@ public class TicketsRecyclerViewAdapter extends RecyclerView.Adapter<TicketsRecy
                     holder.view.setBackgroundColor(Color.parseColor("#FAFAFA"));
                 }
                 break;
+
+            case "speech":
+
+                break;
         }
 
     }
@@ -109,6 +113,10 @@ public class TicketsRecyclerViewAdapter extends RecyclerView.Adapter<TicketsRecy
                     break;
 
                 case "gesture":
+
+                    break;
+
+                case "speech":
 
                     break;
             }
