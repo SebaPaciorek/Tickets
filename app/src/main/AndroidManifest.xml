@@ -172,6 +172,17 @@
 
         </activity>
 
+        <activity
+            android:name=".speech.view.SpeechBuyTicketActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".speech.view.SpeechTicketsActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
 
     </application>
 
