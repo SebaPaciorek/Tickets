@@ -18,6 +18,7 @@ import java.util.List;
 import buying.tickets.R;
 import buying.tickets.gesture.contract.GestureTicketsInterface;
 import buying.tickets.touch.model.Ticket;
+
 /**
  * Created by Sebastian Paciorek
  */
