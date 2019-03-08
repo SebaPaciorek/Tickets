@@ -91,6 +91,7 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
 
         setBuyTicketsButton();
         setTicketControlButtonButton();
+        setReturnButton();
     }
 
     private void setBuyTicketsButton() {
@@ -99,6 +100,10 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
 
     private void setTicketControlButtonButton() {
         ticketControlButton.setClickable(false);
+    }
+
+    private void setReturnButton(){
+        returnButton.setClickable(false);
     }
 
     public double getAcceptedConfidence() {
