@@ -12,8 +12,6 @@ package buying.tickets.internetConnection;
 public interface InternetConnectionInterface {
     interface View {
         void showInternetTextView(boolean isConnected);
-
-        void setInternetConnected(boolean isConnected);
     }
 
     interface Presenter {
