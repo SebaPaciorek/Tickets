@@ -58,7 +58,6 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
 
     private InternetCheck internetCheck;
     private InternetConnectionInterface.Presenter internetConnectionPresenter;
-    private boolean internetConnected = false;
 
     private String activity = "buyTicket";
 
@@ -162,11 +161,6 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
 
     private void setListeningActionsInfoTextView(String message) {
         listeningActionsInfoTextView.setText(message);
-    }
-
-    @Override
-    public void setInternetConnected(boolean isConnected) {
-        internetConnected = isConnected;
     }
 
     private void requestRecordAudioPermission() {
@@ -386,7 +380,6 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
 
             public void onTick(long millisUntilFinished) {
                 int value = (int) (100 - (float) (millisUntilFinished / 2000.0) * 100);
-                Log.d("LOG", "" + (int) (100 - (float) (millisUntilFinished / 2000.0) * 100));
                 setProgressBarValue(value);
             }
 
@@ -456,7 +449,7 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
     }
 
     private void startBuyTicketActivity() {
-        Intent intent = new Intent(this, ChooseMethodActivity.class);
+        Intent intent = new Intent(this, SpeechBuyTicketActivity.class);
         startActivity(intent);
         finish();
     }
