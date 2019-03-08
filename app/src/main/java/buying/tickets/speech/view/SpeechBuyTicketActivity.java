@@ -19,7 +19,6 @@ import android.speech.SpeechRecognizer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -39,7 +38,7 @@ import buying.tickets.internetConnection.InternetConnectorReceiver;
 /**
  * Created by Sebastian Paciorek
  */
-public class SpeechBuyTicketActivity extends AppCompatActivity implements RecognitionListener, InternetConnectionInterface.View{
+public class SpeechBuyTicketActivity extends AppCompatActivity implements RecognitionListener, InternetConnectionInterface.View {
 
     private static SpeechBuyTicketActivity speechBuyTicketActivity;
 
@@ -59,6 +58,7 @@ public class SpeechBuyTicketActivity extends AppCompatActivity implements Recogn
     private InternetConnectionInterface.Presenter internetConnectionPresenter;
 
     private String activity = "normalTicket";
+    private String kindOfTicket = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -162,7 +162,7 @@ public class SpeechBuyTicketActivity extends AppCompatActivity implements Recogn
 
             } else {
                 setInternetConnection();
-                promptSpeechInput();
+                if (speechRecognizer == null)promptSpeechInput();
                 if (internetConnectionPresenter.isConnected()) startListening();
             }
         }
@@ -180,7 +180,7 @@ public class SpeechBuyTicketActivity extends AppCompatActivity implements Recogn
                     } else {
                         setInternetConnection();
                         checkIsRecognitionAvailable();
-                        promptSpeechInput();
+                        if (speechRecognizer == null)promptSpeechInput();
                         if (internetConnectionPresenter.isConnected()) startListening();
                     }
                 }
@@ -358,11 +358,13 @@ public class SpeechBuyTicketActivity extends AppCompatActivity implements Recogn
                 showProgressInfo(false);
                 switch (activity) {
                     case "normalTicket":
-                        startBuyTicketActivity();
+                        kindOfTicket = "normal";
+                        startTicketsActivity();
                         break;
 
                     case "discountTicket":
-                        startTicketControlActivity();
+                        kindOfTicket = "discount";
+                        startTicketsActivity();
                         break;
 
                     case "main":
@@ -390,8 +392,10 @@ public class SpeechBuyTicketActivity extends AppCompatActivity implements Recogn
     }
 
     private void stopListening() {
-        speechRecognizer.stopListening();
-        speechRecognizer.destroy();
+        if (speechRecognizer != null) {
+            speechRecognizer.destroy();
+        }
+        speechRecognizer = null;
     }
 
     private void setSelectedNormalTicketButton(boolean isSelected) {
@@ -418,17 +422,17 @@ public class SpeechBuyTicketActivity extends AppCompatActivity implements Recogn
         }
     }
 
-    private void startBuyTicketActivity() {
-        Intent intent = new Intent(this, ChooseMethodActivity.class);
+    private void startTicketsActivity() {
+        stopListening();
+        Intent intent = new Intent(this, SpeechTicketsActivity.class);
+        intent.putExtra("ticket", kindOfTicket);
         startActivity(intent);
+
         finish();
     }
 
-    private void startTicketControlActivity() {
-
-    }
-
     private void startMainActivity() {
+        stopListening();
         Intent intent = new Intent(this, SpeechMainActivity.class);
         startActivity(intent);
         finish();
@@ -506,6 +510,10 @@ public class SpeechBuyTicketActivity extends AppCompatActivity implements Recogn
         super.onStart();
         TicketsApplication.activityResumed();
         checkInternetAccess();
+        if (speechRecognizer == null){
+            promptSpeechInput();
+            startListening();
+        }
     }
 
     @Override
@@ -513,14 +521,29 @@ public class SpeechBuyTicketActivity extends AppCompatActivity implements Recogn
         super.onResume();
         TicketsApplication.activityResumed();
         checkInternetAccess();
+        if (speechRecognizer == null){
+            promptSpeechInput();
+            startListening();
+        }
     }
 
     @Override
     protected void onPause() {
-        super.onPause();
         TicketsApplication.activityPaused();
         checkInternetAccess();
+        stopListening();
+        super.onPause();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopListening();
+    }
 
+    @Override
+    public void onBackPressed() {
+        //disable back button
+//        super.onBackPressed();
+    }
 }

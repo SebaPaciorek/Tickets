@@ -101,7 +101,7 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
         ticketControlButton.setClickable(false);
     }
 
-    private void setReturnButton(){
+    private void setReturnButton() {
         returnButton.setClickable(false);
     }
 
@@ -172,7 +172,7 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
 
             } else {
                 setInternetConnection();
-                promptSpeechInput();
+                if (speechRecognizer == null) promptSpeechInput();
                 if (internetConnectionPresenter.isConnected()) startListening();
             }
         }
@@ -190,7 +190,7 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
                     } else {
                         setInternetConnection();
                         checkIsRecognitionAvailable();
-                        promptSpeechInput();
+                        if (speechRecognizer == null) promptSpeechInput();
                         if (internetConnectionPresenter.isConnected()) startListening();
                     }
                 }
@@ -420,8 +420,10 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
     }
 
     private void stopListening() {
-        speechRecognizer.stopListening();
-        speechRecognizer.destroy();
+        if (speechRecognizer != null) {
+            speechRecognizer.destroy();
+        }
+        speechRecognizer = null;
     }
 
     private void setSelectedBuyTicketButton(boolean isSelected) {
@@ -449,16 +451,18 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
     }
 
     private void startBuyTicketActivity() {
+        stopListening();
         Intent intent = new Intent(this, SpeechBuyTicketActivity.class);
         startActivity(intent);
         finish();
     }
 
     private void startTicketControlActivity() {
-
+        stopListening();
     }
 
     private void startChooseMethodActivity() {
+        stopListening();
         Intent intent = new Intent(this, ChooseMethodActivity.class);
         startActivity(intent);
         finish();
@@ -542,6 +546,10 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
         super.onStart();
         TicketsApplication.activityResumed();
         checkInternetAccess();
+        if (speechRecognizer == null){
+            promptSpeechInput();
+            startListening();
+        }
     }
 
     @Override
@@ -549,12 +557,29 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
         super.onResume();
         TicketsApplication.activityResumed();
         checkInternetAccess();
+        if (speechRecognizer == null){
+            promptSpeechInput();
+            startListening();
+        }
     }
 
     @Override
     protected void onPause() {
-        super.onPause();
         TicketsApplication.activityPaused();
         checkInternetAccess();
+        stopListening();
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopListening();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //disable back button
+//        super.onBackPressed();
     }
 }
