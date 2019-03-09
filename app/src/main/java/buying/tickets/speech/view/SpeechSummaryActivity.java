@@ -1,7 +1,7 @@
 /*
  * Created by Sebastian Paciorek on 9.3.2019
  * Copyright (c) 2019.  All rights reserved.
- * Last modified 09.03.19 13:01
+ * Last modified 09.03.19 13:26
  */
 
 package buying.tickets.speech.view;
@@ -378,9 +378,9 @@ public class SpeechSummaryActivity extends AppCompatActivity implements Recognit
         finish();
     }
 
-    public void startPaymentActivity() {
+    public void startPaymentMethodActivity() {
         stopListening();
-        Intent intent = new Intent(this, SpeechPaymentActivity.class);
+        Intent intent = new Intent(this, SpeechPaymentMethodActivity.class);
         startActivity(intent);
         finish();
     }

@@ -1,7 +1,7 @@
 /*
  * Created by Sebastian Paciorek on 9.3.2019
  * Copyright (c) 2019.  All rights reserved.
- * Last modified 09.03.19 13:10
+ * Last modified 09.03.19 13:26
  */
 
 package buying.tickets.speech.presenter;
@@ -102,7 +102,7 @@ public class SpeechSummaryPresenter implements SpeechSummaryInterface.Presenter 
                 switch (activity) {
                     case "buyAndPay":
                         view.stopListening();
-                        view.startPaymentActivity();
+                        view.startPaymentMethodActivity();
                         break;
 
                     case "tickets":
