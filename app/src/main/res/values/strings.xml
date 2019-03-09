@@ -1,7 +1,7 @@
 <!--
   ~ Created by Sebastian Paciorek on 9.3.2019
   ~ Copyright (c) 2019.  All rights reserved.
-  ~ Last modified 08.03.19 22:54
+  ~ Last modified 09.03.19 16:13
   -->
 
 <resources>
@@ -50,6 +50,9 @@
 	<string name="speech_results_checked_error_message">Nie dopasowano do możliwych wyborów\nSpróbuj ponownie</string>
 	<string name="speech_results_checked_success_message">Znaleziono dopasowanie</string>
 	<string name="speech_loading_info_title">Przechodzenie do aktywności z zaznaczonym elementem</string>
+	<string name="speech_ticket_control_warning_title">Wybór biletu nie został zaimplementowany celowo.\n Wybrać można tylko opcję WRÓĆ</string>
+
+	<string name="about_google_drive_link">https://drive.google.com/open?id=1El6tIUnhyYxmmL3YRQCsA1lHwG1M3YQ5</string>
 	
 	<string-array name="ticket_20min_match_sequence">
 		<item>20 minutowy</item>

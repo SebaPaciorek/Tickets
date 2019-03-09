@@ -1,7 +1,7 @@
 /*
  * Created by Sebastian Paciorek on 9.3.2019
  * Copyright (c) 2019.  All rights reserved.
- * Last modified 09.03.19 12:35
+ * Last modified 09.03.19 15:41
  */
 
 package buying.tickets.touch.presenter;
@@ -20,10 +20,11 @@ import buying.tickets.R;
 import buying.tickets.gesture.presenter.GestureTicketControlPresenter;
 import buying.tickets.touch.model.Ticket;
 import buying.tickets.touch.view.TouchTicketControlActivity;
+
 /**
  * Created by Sebastian Paciorek
  */
-public class BoughtTicketRecyclerViewAdapter extends RecyclerView.Adapter<BoughtTicketRecyclerViewAdapter.ViewHolder>{
+public class BoughtTicketRecyclerViewAdapter extends RecyclerView.Adapter<BoughtTicketRecyclerViewAdapter.ViewHolder> {
 
     private List<Ticket> ticketList;
     private BoughtTicketRecyclerViewAdapter.ViewHolder holder;
@@ -68,6 +69,10 @@ public class BoughtTicketRecyclerViewAdapter extends RecyclerView.Adapter<Bought
                     holder.view.setBackgroundColor(Color.parseColor("#FAFAFA"));
                 }
                 break;
+
+            case "speech":
+
+                break;
         }
     }
 
@@ -111,6 +116,10 @@ public class BoughtTicketRecyclerViewAdapter extends RecyclerView.Adapter<Bought
                     break;
 
                 case "gesture":
+
+                    break;
+
+                case "speech":
 
                     break;
             }

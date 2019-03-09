@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ Created by Sebastian Paciorek on 9.3.2019
   ~ Copyright (c) 2019.  All rights reserved.
-  ~ Last modified 08.03.19 21:31
+  ~ Last modified 09.03.19 16:17
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -189,6 +189,25 @@
             android:screenOrientation="portrait">
 
         </activity>
+
+        <activity
+            android:name=".speech.view.SpeechPaymentActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".speech.view.SpeechPaymentMethodActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".speech.view.SpeechTicketControlActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
 
     </application>
 
