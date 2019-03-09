@@ -1,7 +1,7 @@
 /*
- * Created by Sebastian Paciorek on 7.3.2019
+ * Created by Sebastian Paciorek on 9.3.2019
  * Copyright (c) 2019.  All rights reserved.
- * Last modified 07.03.19 00:13
+ * Last modified 09.03.19 12:35
  */
 
 package buying.tickets.touch.presenter;
@@ -18,10 +18,8 @@ import java.util.List;
 
 import buying.tickets.R;
 import buying.tickets.gesture.presenter.GestureTicketControlPresenter;
-import buying.tickets.gesture.presenter.GestureTicketsPresenter;
 import buying.tickets.touch.model.Ticket;
 import buying.tickets.touch.view.TouchTicketControlActivity;
-import buying.tickets.touch.view.TouchTicketsActivity;
 /**
  * Created by Sebastian Paciorek
  */

@@ -1,7 +1,7 @@
 /*
- * Created by Sebastian Paciorek on 7.3.2019
+ * Created by Sebastian Paciorek on 9.3.2019
  * Copyright (c) 2019.  All rights reserved.
- * Last modified 07.03.19 00:13
+ * Last modified 09.03.19 12:35
  */
 
 package buying.tickets.gesture.view;
@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -23,7 +22,6 @@ import buying.tickets.gesture.contract.AccelerometerInterface;
 import buying.tickets.gesture.contract.GesturePaymentMethodInterface;
 import buying.tickets.gesture.presenter.GesturePaymentMethodPresenter;
 import buying.tickets.gesture.presenter.sensor.AccelerometerPresenter;
-import buying.tickets.touch.view.TouchPaymentActivity;
 /**
  * Created by Sebastian Paciorek
  */

@@ -1,17 +1,17 @@
 /*
- * Created by Sebastian Paciorek on 7.3.2019
+ * Created by Sebastian Paciorek on 9.3.2019
  * Copyright (c) 2019.  All rights reserved.
- * Last modified 07.03.19 11:34
+ * Last modified 09.03.19 12:36
  */
 
 package buying.tickets.choosemethod;
 /**
  * Created by Sebastian Paciorek
  */
+
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

@@ -1,7 +1,7 @@
 /*
- * Created by Sebastian Paciorek on 7.3.2019
+ * Created by Sebastian Paciorek on 9.3.2019
  * Copyright (c) 2019.  All rights reserved.
- * Last modified 07.03.19 00:13
+ * Last modified 09.03.19 12:35
  */
 
 package buying.tickets.touch.view;
@@ -10,11 +10,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.view.View;
 
 import buying.tickets.R;
-import buying.tickets.gesture.contract.AccelerometerInterface;
 /**
  * Created by Sebastian Paciorek
  */

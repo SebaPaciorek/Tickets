@@ -1,7 +1,7 @@
 /*
- * Created by Sebastian Paciorek on 7.3.2019
+ * Created by Sebastian Paciorek on 9.3.2019
  * Copyright (c) 2019.  All rights reserved.
- * Last modified 07.03.19 00:13
+ * Last modified 09.03.19 12:36
  */
 
 package buying.tickets.touch.view;
@@ -9,12 +9,10 @@ package buying.tickets.touch.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
 import android.widget.TextView;
 
 import buying.tickets.R;
 import buying.tickets.touch.contract.TouchTicketsControlDetailsInterface;
-import buying.tickets.touch.presenter.TouchSummaryPresenter;
 import buying.tickets.touch.presenter.TouchTicketControlDetailsPresenter;
 /**
  * Created by Sebastian Paciorek

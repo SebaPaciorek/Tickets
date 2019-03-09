@@ -1,7 +1,7 @@
 /*
- * Created by Sebastian Paciorek on 7.3.2019
+ * Created by Sebastian Paciorek on 9.3.2019
  * Copyright (c) 2019.  All rights reserved.
- * Last modified 07.03.19 00:13
+ * Last modified 08.03.19 21:31
  */
 
 package buying.tickets.gesture.view;

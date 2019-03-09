@@ -1,7 +1,7 @@
 /*
- * Created by Sebastian Paciorek on 8.3.2019
+ * Created by Sebastian Paciorek on 9.3.2019
  * Copyright (c) 2019.  All rights reserved.
- * Last modified 08.03.19 14:52
+ * Last modified 09.03.19 12:36
  */
 
 package buying.tickets.speech.view;
@@ -34,7 +34,6 @@ import java.util.Locale;
 
 import buying.tickets.R;
 import buying.tickets.application.TicketsApplication;
-import buying.tickets.choosemethod.ChooseMethodActivity;
 import buying.tickets.internetConnection.InternetCheck;
 import buying.tickets.internetConnection.InternetConnectionInterface;
 import buying.tickets.internetConnection.InternetConnectorReceiver;
@@ -42,7 +41,6 @@ import buying.tickets.speech.contract.SpeechTicketsInterface;
 import buying.tickets.speech.presenter.SpeechTicketsPresenter;
 import buying.tickets.touch.model.Ticket;
 import buying.tickets.touch.presenter.TicketsRecyclerViewAdapter;
-import buying.tickets.touch.view.TouchSummaryActivity;
 
 /**
  * Created by Sebastian Paciorek
@@ -197,7 +195,8 @@ public class SpeechTicketsActivity extends AppCompatActivity implements Recognit
         }
     }
 
-    private void showListeningErrorInfoMatchInfo(boolean show) {
+    @Override
+    public void showListeningErrorInfoMatchInfo(boolean show) {
         if (show) {
             listeningErrorInfoTextView.setVisibility(View.VISIBLE);
         } else {
@@ -231,7 +230,7 @@ public class SpeechTicketsActivity extends AppCompatActivity implements Recognit
 
             } else {
                 setInternetConnection();
-                if (speechRecognizer == null)promptSpeechInput();
+                if (speechRecognizer == null) promptSpeechInput();
                 if (internetConnectionPresenter.isConnected()) startListening();
             }
         }
@@ -249,7 +248,7 @@ public class SpeechTicketsActivity extends AppCompatActivity implements Recognit
                     } else {
                         setInternetConnection();
                         checkIsRecognitionAvailable();
-                        if (speechRecognizer == null)promptSpeechInput();
+                        if (speechRecognizer == null) promptSpeechInput();
                         if (internetConnectionPresenter.isConnected()) startListening();
                     }
                 }
@@ -356,7 +355,7 @@ public class SpeechTicketsActivity extends AppCompatActivity implements Recognit
             if (confidenceScores != null) {
                 if (confidenceScores.length > 0) {
                     if (confidenceScores[0] >= Float.valueOf(getResources().getString(R.string.accepted_confidence))) {
-                        checkResults(voiceResults.get(0));
+                        checkResults(voiceResults);
                     } else {
                         showListeningErrorInfoMatchInfo(true);
                         setListeningErrorInfoTextView(getResources().getString(R.string.speech_results_checked_error_message));
@@ -379,34 +378,8 @@ public class SpeechTicketsActivity extends AppCompatActivity implements Recognit
         }
     }
 
-    private void checkResults(String results) {
+    private void checkResults(ArrayList<String> results) {
         speechTicketsPresenter.findMatch(results);
-    }
-
-    private void setCountDownTimerStartActivity() {
-        showProgressBar(true);
-        showProgressInfo(true);
-        new CountDownTimer(2000, 10) {
-
-            public void onTick(long millisUntilFinished) {
-                int value = (int) (100 - (float) (millisUntilFinished / 2000.0) * 100);
-                setProgressBarValue(value);
-            }
-
-            public void onFinish() {
-                showProgressBar(false);
-                showProgressInfo(false);
-                switch (activity) {
-                    case "tickets":
-                        startSummaryActivity();
-                        break;
-
-                    case "buyTicket":
-                        startBuyTicketActivity();
-                        break;
-                }
-            }
-        }.start();
     }
 
     @Override
@@ -445,7 +418,7 @@ public class SpeechTicketsActivity extends AppCompatActivity implements Recognit
 
     @Override
     public void startSummaryActivity() {
-        Intent intent = new Intent(this, TouchSummaryActivity.class);
+        Intent intent = new Intent(this, SpeechSummaryActivity.class);
         startActivity(intent);
         finish();
     }
@@ -532,7 +505,7 @@ public class SpeechTicketsActivity extends AppCompatActivity implements Recognit
         super.onStart();
         TicketsApplication.activityResumed();
         checkInternetAccess();
-        if (speechRecognizer == null){
+        if (speechRecognizer == null) {
             promptSpeechInput();
             startListening();
         }
@@ -543,7 +516,7 @@ public class SpeechTicketsActivity extends AppCompatActivity implements Recognit
         super.onResume();
         TicketsApplication.activityResumed();
         checkInternetAccess();
-        if (speechRecognizer == null){
+        if (speechRecognizer == null) {
             promptSpeechInput();
             startListening();
         }

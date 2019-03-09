@@ -1,14 +1,13 @@
 /*
- * Created by Sebastian Paciorek on 8.3.2019
+ * Created by Sebastian Paciorek on 9.3.2019
  * Copyright (c) 2019.  All rights reserved.
- * Last modified 08.03.19 15:26
+ * Last modified 09.03.19 12:36
  */
 
 package buying.tickets.speech.presenter;
 
 import android.content.Context;
 import android.os.CountDownTimer;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,11 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import buying.tickets.R;
-import buying.tickets.gesture.contract.GestureTicketsInterface;
-import buying.tickets.gesture.presenter.GestureTicketsPresenter;
 import buying.tickets.speech.contract.SpeechTicketsInterface;
 import buying.tickets.touch.model.Ticket;
-import buying.tickets.touch.presenter.TouchSummaryPresenter;
 
 /**
  * Created by Sebastian Paciorek
@@ -38,7 +34,7 @@ public class SpeechTicketsPresenter implements SpeechTicketsInterface.Presenter 
 
     private String activity;
 
-    private int currentItemSelected = 0;
+    private int currentItemSelected = -1;
 
     public SpeechTicketsPresenter() {
         ticketList = new ArrayList<>();
@@ -91,71 +87,105 @@ public class SpeechTicketsPresenter implements SpeechTicketsInterface.Presenter 
     }
 
     @Override
-    public void findMatch(String results) {
-        Log.d("LOG", "results: " + results);
-        results = results.toLowerCase();
+    public void findMatch(ArrayList<String> voiceResults) {
+        String buyTicket = "wróć";
+
         for (int i = 0; i < ticketList.size(); i++) {
             //bilet 20 min.
             if (i == 0) {
-                if (findMatchTicket20min(results)) {
+                if (findMatchTicket20min(voiceResults)) {
+                    currentItemSelected = i;
+                    view.notifyDataSetChangedTicketsRecyclerView();
                     view.setListeningActionsInfoTextView(context.getResources().getString(R.string.speech_results_checked_success_message));
                     view.setSelectedReturnButton(false);
-                    currentItemSelected = i;
+                    activity = "summary";
                     setCountDownTimerStartActivity();
+                    return;
                 }
             }
             //bilet jednorazowy przesiadkowy 75
             else if (i == 1) {
-                if (findMatchTicket75min(results)) {
+                if (findMatchTicket75min(voiceResults)) {
+                    currentItemSelected = i;
+                    view.notifyDataSetChangedTicketsRecyclerView();
                     view.setListeningActionsInfoTextView(context.getResources().getString(R.string.speech_results_checked_success_message));
                     view.setSelectedReturnButton(false);
-                    currentItemSelected = i;
+                    activity = "summary";
                     setCountDownTimerStartActivity();
+                    return;
                 }
             }
             //bilet jednorazowy przesiadkowy 90
             else if (i == 2) {
-                if (findMatchTicket90min(results)) {
+                if (findMatchTicket90min(voiceResults)) {
+                    currentItemSelected = i;
+                    view.notifyDataSetChangedTicketsRecyclerView();
                     view.setListeningActionsInfoTextView(context.getResources().getString(R.string.speech_results_checked_success_message));
                     view.setSelectedReturnButton(false);
-                    currentItemSelected = i;
+                    activity = "summary";
                     setCountDownTimerStartActivity();
+                    return;
                 }
-            } else if (ticketList.get(i).getName().contains(results)) {
-                view.setListeningActionsInfoTextView(context.getResources().getString(R.string.speech_results_checked_success_message));
-                view.setSelectedReturnButton(false);
-                currentItemSelected = i;
-                setCountDownTimerStartActivity();
             } else {
-                view.setListeningActionsInfoTextView(context.getResources().getString(R.string.speech_results_checked_error_message));
-                view.setCountDownTimerStartListening();
+                if (isMatchExist(voiceResults, ticketList.get(i).getName())) {
+                    currentItemSelected = i;
+                    view.notifyDataSetChangedTicketsRecyclerView();
+                    view.setListeningActionsInfoTextView(context.getResources().getString(R.string.speech_results_checked_success_message));
+                    view.setSelectedReturnButton(false);
+                    activity = "summary";
+                    setCountDownTimerStartActivity();
+                    return;
+                }
+
             }
         }
+        if (isMatchExist(voiceResults, buyTicket)) {
+            view.notifyDataSetChangedTicketsRecyclerView();
+            view.setListeningActionsInfoTextView(context.getResources().getString(R.string.speech_results_checked_success_message));
+            view.setSelectedReturnButton(true);
+            activity = "buyTicket";
+            setCountDownTimerStartActivity();
+        } else {
+            currentItemSelected = -1;
+            view.showListeningErrorInfoMatchInfo(true);
+            view.setListeningActionsInfoTextView(context.getResources().getString(R.string.speech_results_checked_error_message));
+            view.setCountDownTimerStartListening();
+        }
     }
 
-    private boolean findMatchTicket20min(String reults) {
+    private boolean findMatchTicket20min(ArrayList<String> voiceResults) {
         String sequences[] = context.getResources().getStringArray(R.array.ticket_20min_match_sequence);
-        for (String sequence : sequences
-        ) {
-            if (reults.contains(sequence)) return true;
-        }
-        return false;
+
+        return isMatchExist(voiceResults, sequences);
     }
 
-    private boolean findMatchTicket75min(String reults) {
+    private boolean findMatchTicket75min(ArrayList<String> voiceResults) {
         String sequences[] = context.getResources().getStringArray(R.array.ticket_75min_match_sequence);
-        for (String sequence : sequences
+
+        return isMatchExist(voiceResults, sequences);
+    }
+
+    private boolean findMatchTicket90min(ArrayList<String> voiceResults) {
+        String sequences[] = context.getResources().getStringArray(R.array.ticket_90min_match_sequence);
+
+        return isMatchExist(voiceResults, sequences);
+    }
+
+    private boolean isMatchExist(ArrayList<String> voiceResults, String sequences[]) {
+        for (String results : voiceResults
         ) {
-            if (reults.contains(sequence)) return true;
+            for (String sequence : sequences
+            ) {
+                if (results.toLowerCase().contains(sequence.toLowerCase())) return true;
+            }
         }
         return false;
     }
 
-    private boolean findMatchTicket90min(String reults) {
-        String sequences[] = context.getResources().getStringArray(R.array.ticket_90min_match_sequence);
-        for (String sequence : sequences
+    private boolean isMatchExist(ArrayList<String> voiceResults, String sequence) {
+        for (String results : voiceResults
         ) {
-            if (reults.contains(sequence)) return true;
+            if (results.toLowerCase().contains(sequence.toLowerCase()) || sequence.toLowerCase().contains(results.toLowerCase())) return true;
         }
         return false;
     }
@@ -176,8 +206,9 @@ public class SpeechTicketsPresenter implements SpeechTicketsInterface.Presenter 
                 switch (activity) {
                     case "summary":
                         view.stopListening();
-                        TouchSummaryPresenter.getInstance().setTicket(ticketList.get(getCurrentItemSelected()));
+                        SpeechSummaryPresenter.getInstance().setTicket(ticketList.get(currentItemSelected));
                         view.startSummaryActivity();
+                        currentItemSelected = -1;
                         break;
 
                     case "buyTicket":

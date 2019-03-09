@@ -1,12 +1,10 @@
 <!--
-  ~ Created by Sebastian Paciorek on 7.3.2019
+  ~ Created by Sebastian Paciorek on 9.3.2019
   ~ Copyright (c) 2019.  All rights reserved.
-  ~ Last modified 06.03.19 23:55
+  ~ Last modified 09.03.19 12:35
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 

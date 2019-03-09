@@ -1,7 +1,7 @@
 <!--
-  ~ Created by Sebastian Paciorek on 7.3.2019
+  ~ Created by Sebastian Paciorek on 9.3.2019
   ~ Copyright (c) 2019.  All rights reserved.
-  ~ Last modified 06.03.19 23:55
+  ~ Last modified 08.03.19 22:54
   -->
 
 <resources>
@@ -52,18 +52,21 @@
 	<string name="speech_loading_info_title">Przechodzenie do aktywności z zaznaczonym elementem</string>
 	
 	<string-array name="ticket_20min_match_sequence">
-		<item>dwudziestominutowy</item>
 		<item>20 minutowy</item>
+		<item>20-minutowy</item>
+		<item>dwudziestominutowy</item>
 	</string-array>
 
 	<string-array name="ticket_75min_match_sequence">
-		<item>siedemdziesięciopięciominutowy</item>
 		<item>75 minutowy</item>
+		<item>75-minutowy</item>
+		<item>siedemdziesięciopięciominutowy</item>
 	</string-array>
 
 	<string-array name="ticket_90min_match_sequence">
-		<item>dziewięćdziesięciominutowy</item>
 		<item>90 minutowy</item>
+		<item>90-minutowy</item>
+		<item>dziewięćdziesięciominutowy</item>
 	</string-array>
 
 	<!-- Colors for gesture module-->
@@ -99,10 +102,10 @@
 			\"name\": \"Bilet dobowy. Strefa 1\",
 			\"price\": \"7,50 PLN\"
 		},
-		{
-			\"name\": \"Bilet dobowy. Strefa 1 i 2\",
-			\"price\": \"13,00 PLN\"
-		},
+		<!--{-->
+			<!--\"name\": \"Bilet dobowy. Strefa 1 i 2\",-->
+			<!--\"price\": \"13,00 PLN\"-->
+		<!--},-->
 		{
 			\"name\": \"Bilet weekendowy. Strefa 1 i 2\",
 			\"price\": \"12,00 PLN\"
@@ -111,10 +114,10 @@
 			\"name\": \"Bilet 3-dniowy. Strefa 1\",
 			\"price\": \"18,00 PLN\"
 		},
-		{
-			\"name\": \"Bilet 3-dniowy. Strefa 1 i 2\",
-			\"price\": \"28,50 PLN\"
-		},
+		<!--{-->
+			<!--\"name\": \"Bilet 3-dniowy. Strefa 1 i 2\",-->
+			<!--\"price\": \"28,50 PLN\"-->
+		<!--},-->
 		{
 			\"name\": \"Bilet jednorazowy przesiadkowy 75 min. dla 10 osób. Strefa 1\",
 			\"price\": \"22,00 PLN\"
@@ -138,10 +141,10 @@
 			\"name\": \"Bilet dobowy. Strefa 1\",
 			\"price\": \"15,00 PLN\"
 		},
-		{
-			\"name\": \"Bilet dobowy. Strefa 1 i 2\",
-			\"price\": \"26,00 PLN\"
-		},
+		<!--{-->
+			<!--\"name\": \"Bilet dobowy. Strefa 1 i 2\",-->
+			<!--\"price\": \"26,00 PLN\"-->
+		<!--},-->
 		{
 			\"name\": \"Bilet weekendowy. Strefa 1 i 2\",
 			\"price\": \"24,00 PLN\"
@@ -153,11 +156,12 @@
 		{
 			\"name\": \"Bilet 3-dniowy. Strefa 1\",
 			\"price\": \"36,00 PLN\"
-		},
-		{
-			\"name\": \"Bilet 3-dniowy. Strefa 1 i 2\",
-			\"price\": \"57,00 PLN\"
 		}
+		<!--,-->
+		<!--{-->
+			<!--\"name\": \"Bilet 3-dniowy. Strefa 1 i 2\",-->
+			<!--\"price\": \"57,00 PLN\"-->
+		<!--}-->
 	]
     </string>
 

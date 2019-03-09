@@ -1,16 +1,16 @@
 /*
- * Created by Sebastian Paciorek on 8.3.2019
+ * Created by Sebastian Paciorek on 9.3.2019
  * Copyright (c) 2019.  All rights reserved.
- * Last modified 08.03.19 15:27
+ * Last modified 09.03.19 12:36
  */
 
 package buying.tickets.speech.contract;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import buying.tickets.gesture.contract.GestureTicketsInterface;
 import buying.tickets.touch.model.Ticket;
 
 /**
@@ -40,6 +40,8 @@ public interface SpeechTicketsInterface {
         void startBuyTicketActivity();
 
         void stopListening();
+
+        void showListeningErrorInfoMatchInfo(boolean show);
     }
 
     interface Presenter {
@@ -55,6 +57,6 @@ public interface SpeechTicketsInterface {
 
         int getCurrentItemSelected();
 
-        void findMatch(String results);
+        void findMatch(ArrayList<String> voiceResults);
     }
 }

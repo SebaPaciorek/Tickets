@@ -1,7 +1,7 @@
 /*
- * Created by Sebastian Paciorek on 7.3.2019
+ * Created by Sebastian Paciorek on 9.3.2019
  * Copyright (c) 2019.  All rights reserved.
- * Last modified 07.03.19 00:13
+ * Last modified 09.03.19 12:35
  */
 
 package buying.tickets.gesture.presenter;
@@ -9,7 +9,6 @@ package buying.tickets.gesture.presenter;
 import android.content.Context;
 
 import buying.tickets.gesture.contract.GesturePaymentMethodInterface;
-import buying.tickets.gesture.contract.GestureSummaryInterface;
 /**
  * Created by Sebastian Paciorek
  */

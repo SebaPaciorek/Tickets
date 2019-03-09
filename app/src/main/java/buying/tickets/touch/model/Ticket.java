@@ -1,13 +1,10 @@
 /*
- * Created by Sebastian Paciorek on 7.3.2019
+ * Created by Sebastian Paciorek on 9.3.2019
  * Copyright (c) 2019.  All rights reserved.
- * Last modified 07.03.19 00:13
+ * Last modified 09.03.19 12:35
  */
 
 package buying.tickets.touch.model;
-
-import java.io.Reader;
-import java.util.Comparator;
 
 import io.realm.RealmObject;
 /**

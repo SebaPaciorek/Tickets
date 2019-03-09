@@ -1,7 +1,7 @@
 /*
- * Created by Sebastian Paciorek on 8.3.2019
+ * Created by Sebastian Paciorek on 9.3.2019
  * Copyright (c) 2019.  All rights reserved.
- * Last modified 08.03.19 12:22
+ * Last modified 09.03.19 12:36
  */
 
 package buying.tickets.speech.view;
@@ -30,7 +30,6 @@ import java.util.Locale;
 
 import buying.tickets.R;
 import buying.tickets.application.TicketsApplication;
-import buying.tickets.choosemethod.ChooseMethodActivity;
 import buying.tickets.internetConnection.InternetCheck;
 import buying.tickets.internetConnection.InternetConnectionInterface;
 import buying.tickets.internetConnection.InternetConnectorReceiver;
