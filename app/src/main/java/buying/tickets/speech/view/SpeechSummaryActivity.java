@@ -1,7 +1,7 @@
 /*
  * Created by Sebastian Paciorek on 9.3.2019
  * Copyright (c) 2019.  All rights reserved.
- * Last modified 08.03.19 21:59
+ * Last modified 09.03.19 13:01
  */
 
 package buying.tickets.speech.view;
@@ -61,8 +61,6 @@ public class SpeechSummaryActivity extends AppCompatActivity implements Recognit
 
     private SpeechSummaryInterface.Presenter speechSummaryPresenter;
 
-    private String activity = "buyAndPay";
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +72,7 @@ public class SpeechSummaryActivity extends AppCompatActivity implements Recognit
 
         internetConnectionPresenter = new InternetConnectorReceiver();
 
-        speechSummaryPresenter  = SpeechSummaryPresenter.getInstance();
+        speechSummaryPresenter = SpeechSummaryPresenter.getInstance();
         speechSummaryPresenter.setContext(this);
         speechSummaryPresenter.setView(this);
 
@@ -113,6 +111,16 @@ public class SpeechSummaryActivity extends AppCompatActivity implements Recognit
         buyAndPayButton.setClickable(false);
     }
 
+    @Override
+    public Button getBuyAndPayButton() {
+        return buyAndPayButton;
+    }
+
+    @Override
+    public Button getReturnButton() {
+        return returnButton;
+    }
+
     private void setReturnButton() {
         returnButton.setClickable(false);
     }
@@ -143,7 +151,7 @@ public class SpeechSummaryActivity extends AppCompatActivity implements Recognit
         }
     }
 
-    private void showListeningErrorInfoMatchInfo(boolean show) {
+    public void showListeningErrorInfoMatchInfo(boolean show) {
         if (show) {
             listeningErrorInfoTextView.setVisibility(View.VISIBLE);
         } else {
@@ -163,7 +171,7 @@ public class SpeechSummaryActivity extends AppCompatActivity implements Recognit
         }
     }
 
-    private void setListeningActionsInfoTextView(String message) {
+    public void setListeningActionsInfoTextView(String message) {
         listeningActionsInfoTextView.setText(message);
     }
 
@@ -222,7 +230,6 @@ public class SpeechSummaryActivity extends AppCompatActivity implements Recognit
     private void startListening() {
         speechRecognizer.startListening(recognizerIntent);
     }
-
 
     public static SpeechSummaryActivity getInstance() {
         return speechSummaryActivity;
@@ -302,7 +309,7 @@ public class SpeechSummaryActivity extends AppCompatActivity implements Recognit
             if (confidenceScores != null) {
                 if (confidenceScores.length > 0) {
                     if (confidenceScores[0] >= Float.valueOf(getResources().getString(R.string.accepted_confidence))) {
-                        checkResults(voiceResults.get(0));
+                        speechSummaryPresenter.findMatch(voiceResults);
                     } else {
                         showListeningErrorInfoMatchInfo(true);
                         setListeningErrorInfoTextView(getResources().getString(R.string.speech_results_checked_error_message));
@@ -325,56 +332,7 @@ public class SpeechSummaryActivity extends AppCompatActivity implements Recognit
         }
     }
 
-    private void checkResults(String results) {
-        String buyAndPay = buyAndPayButton.getText().toString().toLowerCase();
-        String tickets = returnButton.getText().toString().toLowerCase();
-        if (results != null) {
-            if (buyAndPay.contains(results.toLowerCase())) {
-                setListeningActionsInfoTextView(getResources().getString(R.string.speech_results_checked_success_message));
-                setSelectedBuyAndPayButton(true);
-                setSelectedReturnButton(false);
-                activity = "buyAndPay";
-                setCountDownTimerStartActivity();
-            } else if (tickets.contains(results.toLowerCase())) {
-                setListeningActionsInfoTextView(getResources().getString(R.string.speech_results_checked_success_message));
-                setSelectedBuyAndPayButton(false);
-                setSelectedReturnButton(true);
-                activity = "tickets";
-                setCountDownTimerStartActivity();
-            } else {
-                setListeningActionsInfoTextView(getResources().getString(R.string.speech_results_checked_error_message));
-                setCountDownTimerStartListening();
-            }
-        }
-    }
-
-    private void setCountDownTimerStartActivity() {
-        showProgressBar(true);
-        showProgressInfo(true);
-        new CountDownTimer(2000, 10) {
-
-            public void onTick(long millisUntilFinished) {
-                int value = (int) (100 - (float) (millisUntilFinished / 2000.0) * 100);
-                setProgressBarValue(value);
-            }
-
-            public void onFinish() {
-                showProgressBar(false);
-                showProgressInfo(false);
-                switch (activity) {
-                    case "buyAndPay":
-                        startPaymentActivity();
-                        break;
-                        
-                    case "tickets":
-                        startTicketsActivity();
-                        break;
-                }
-            }
-        }.start();
-    }
-
-    private void setCountDownTimerStartListening() {
+    public void setCountDownTimerStartListening() {
         new CountDownTimer(2000, 10) {
 
             public void onTick(long millisUntilFinished) {
@@ -390,14 +348,14 @@ public class SpeechSummaryActivity extends AppCompatActivity implements Recognit
         }.start();
     }
 
-    private void stopListening() {
+    public void stopListening() {
         if (speechRecognizer != null) {
             speechRecognizer.destroy();
         }
         speechRecognizer = null;
     }
 
-    private void setSelectedBuyAndPayButton(boolean isSelected) {
+    public void setSelectedBuyAndPayButton(boolean isSelected) {
         if (isSelected) {
             buyAndPayButton.setBackgroundColor(Color.parseColor(getResources().getString(R.string.selected_button_color)));
         } else {
@@ -405,7 +363,7 @@ public class SpeechSummaryActivity extends AppCompatActivity implements Recognit
         }
     }
 
-    private void setSelectedReturnButton(boolean isSelected) {
+    public void setSelectedReturnButton(boolean isSelected) {
         if (isSelected) {
             returnButton.setBackgroundColor(Color.parseColor(getResources().getString(R.string.selected_button_color)));
         } else {
@@ -413,25 +371,25 @@ public class SpeechSummaryActivity extends AppCompatActivity implements Recognit
         }
     }
 
-    private void startTicketsActivity() {
+    public void startTicketsActivity() {
         stopListening();
         Intent intent = new Intent(this, SpeechTicketsActivity.class);
         startActivity(intent);
         finish();
     }
 
-    private void startPaymentActivity() {
+    public void startPaymentActivity() {
         stopListening();
-        Intent intent = new Intent(this, SpeechTicketsActivity.class);
+        Intent intent = new Intent(this, SpeechPaymentActivity.class);
         startActivity(intent);
         finish();
     }
 
-    private void setProgressBarValue(int value) {
+    public void setProgressBarValue(int value) {
         progressBar.setProgress(value);
     }
 
-    private void showProgressBar(boolean show) {
+    public void showProgressBar(boolean show) {
         if (show) {
             progressBar.setVisibility(View.VISIBLE);
         } else {
@@ -439,7 +397,7 @@ public class SpeechSummaryActivity extends AppCompatActivity implements Recognit
         }
     }
 
-    private void showProgressInfo(boolean show) {
+    public void showProgressInfo(boolean show) {
         if (show) {
             progressInfoTextView.setVisibility(View.VISIBLE);
         } else {
