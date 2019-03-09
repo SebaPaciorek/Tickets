@@ -1,7 +1,7 @@
 /*
  * Created by Sebastian Paciorek on 9.3.2019
  * Copyright (c) 2019.  All rights reserved.
- * Last modified 08.03.19 21:31
+ * Last modified 09.03.19 16:25
  */
 
 package buying.tickets.speech.view;
@@ -459,6 +459,9 @@ public class SpeechMainActivity extends AppCompatActivity implements Recognition
 
     private void startTicketControlActivity() {
         stopListening();
+        Intent intent = new Intent(this, SpeechTicketControlActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void startChooseMethodActivity() {
